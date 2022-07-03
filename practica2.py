@@ -1,11 +1,25 @@
-numero1 = int(input(" Ingrese el primer numero: "))
-numero2 = int(input(" Ingrese el segundo numero: "))
-resultado = 0
+lista = [3,6,8,2,6]
 
-
-def sumar(numero1, numero2):
-    resultado = numero1 + numero2
-    print("El resultado es:", resultado)
-
-
-print(sumar(numero1, numero2))
+def mayor(lista):
+    max = lista[0];
+    for x in lista:
+        if x > max:
+            max = x
+    return max    
+ 
+def menor(lista):
+    min = lista[0];
+    for x in lista:
+        if x < min:
+            min = x
+    return min
+ 
+def main(lista):
+    print ("La lista es ", lista)
+    print ("El número mayor es ", mayor(lista))
+    print ("El número menor es ", menor(lista))
+    print ("Usando las funciones estándar de Python")
+    print ("El número mayor es: ", max(lista))
+    print ("El número menos es: ", min(lista))
+ 
+main(lista)
