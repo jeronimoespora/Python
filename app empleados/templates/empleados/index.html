@@ -7,6 +7,29 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hola desde Flask</h1>
+    <1h>Hola desde Flask</1h>
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>#</th>
+                <th>Foto</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for empleado in empleados %}
+                <td>{{empleado[0]}}</td>
+                <td>{{empleado[3]}}</td>
+                <td>{{empleado[1]}}</td>
+                <td>{{empleado[2]}}</td>
+                <td> <a href="edit/{{empleado[0]}}">Editar |</a>  
+                <a href="destroy/{{empleado[0]}}">Eliminar</a>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

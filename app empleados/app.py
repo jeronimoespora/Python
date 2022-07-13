@@ -1,6 +1,8 @@
+from colorama import Cursor
 from flask import Flask
-from flask import render_template
+from flask import render_template,request,redirect
 from flaskext.mysql import MySQL
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -17,13 +19,61 @@ mysql.init_app(app)
 
 @app.route("/")
 def index():
-    sql = "INSERT INTO empleados(id,nombre,correo,foto)VALUES(NULL,'Mora','Moramg@gmail.com','Mora.jpg');"
+
+    sql = "SELECT * FROM empleados;"
     conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute(sql)
+    empleados=cursor.fetchall()
+    print(empleados)
     conn.commit()
 
-    return render_template("empleados/index.html")
+    return render_template('empleados/index.html',empleados=empleados)
+
+@app.route('/create')
+def create():
+    return render_template('empleados/create.html')
+
+@app.route('/destroy/<int:id>')
+def destroy(id):
+    conn=mysql.connect()
+    cursor=conn.cursor()
+    cursor.execute("DELETE FROM empleados WHERE id=%s",(id)) 
+    conn.commit()
+    return redirect('/')
+
+@app.route('/edit/<int:id>')
+def edit(id):
+    conn=mysql.connect()
+    cursor=conn.cursor()
+    cursor.execute("SELECT * FROM empleados WHERE id=%s",(id))
+    empleados=cursor.fetchall()
+    conn.commit()
+    return render_template('empleados/edit.html',empleados=empleados)
+
+@app.route('/store',methods=['POST'])
+def store():
+    _nombre=request.form['txtNombre']
+    _correo=request.form['txtCorreo']
+    _foto=request.files['txtFoto']
+
+    now=datetime.now()
+    tiempo=now.strftime("%Y%H%M%S")
+
+    if _foto.filename!='':
+        nuevoNombreFoto=tiempo +_foto.filename
+        _foto.save("uploads/"+nuevoNombreFoto)
+
+    datos=(_nombre,_correo,nuevoNombreFoto)
+
+
+    sql = "INSERT INTO empleados(id,nombre,correo,foto)VALUES(NULL, %s, %s, %s);"
+    datos=(_nombre,_correo,_foto.filename)
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute(sql,datos)
+    conn.commit()
+    return render_template('empleados/index.html')
 
 
 if __name__ == "__main__":
