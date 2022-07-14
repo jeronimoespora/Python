@@ -27,7 +27,7 @@ while True:
 
 	except ValueError:
 		contador +=1
-		print("Los Vvalores introducidos no son correctos")	
+		print("Los valores introducidos no son correctos")	
 		if contador == 3:
 			sys.exit()
 
