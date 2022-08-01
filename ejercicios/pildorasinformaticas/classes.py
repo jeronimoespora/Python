@@ -13,7 +13,7 @@ class CuentaCorriente:
     def deposit(self, toDepost):
         self.saldoCuenta = self.saldoCuenta + toDepost
 
-    def extract(self, toExtract):
+    def extract(self, toExtract): 
         self.saldoCuenta = self.saldoCuenta - toExtract
 
 
