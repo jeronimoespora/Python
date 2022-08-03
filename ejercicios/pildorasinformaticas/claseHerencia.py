@@ -39,10 +39,3 @@ class CuentaJoven(CuentaCorriente):
         super().retirar(cantidad)
 
 
-c1 = CuentaJoven("0500", "María", 37000, 1500)
-
-c1.ingresar(5000)
-
-c1.retirar(350)
-
-print(c1.getDatos())
