@@ -6,14 +6,10 @@ class CuentaCorriente:
         self.saldo = saldo
 
     def getDatos(self):
-        return (
-            "El titular de la cuenta nº "
-            + self.numero
-            + " es "
-            + self.titular
-            + " y tiene un saldo en cuenta de "
-            + str(self.saldo)
-        )
+
+        return "El titular de la cuenta nº " + self.numero + " es " + self.titular + \
+        " y tiene un saldo en cuenta de " + str(self.saldo)
+        
 
     def ingresar(self, cantidad):
         self.saldo = self.saldo + cantidad
@@ -22,8 +18,16 @@ class CuentaCorriente:
 
         self.saldo = self.saldo - cantidad
 
-        def getBonus(self):
-            return self.bonus_promocion
+
+class CuentaJoven(CuentaCorriente):
+    def __init__(self, numero, titular, saldo, bonus_promocion=0):
+        super().__init__(numero, titular, saldo)
+        self.bonus_promocion = bonus_promocion
+        self.saldo += bonus_promocion
+
+    def getBonus(self):
+
+        return self.bonus_promocion
 
     def getDatos(self):
         return super().getDatos() + " Bonus: " + str(self.bonus_promocion)
@@ -35,6 +39,10 @@ class CuentaCorriente:
         super().retirar(cantidad)
 
 
-class CuentaJoven(CuentaCorriente):
-    def __init__(self, numeroCuenta, titularCuenta, saldoCuenta):
-        super().__init__(numeroCuenta, titularCuenta, saldoCuenta)
+c1 = CuentaJoven("0500", "María", 37000, 1500)
+
+c1.ingresar(5000)
+
+c1.retirar(350)
+
+print(c1.getDatos())
