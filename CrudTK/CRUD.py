@@ -158,7 +158,7 @@ tree.heading("#3", text="Salario", anchor=CENTER)
 
 
 ########## Colocar widgets en la VISTA
-
+########## Creando Menus
 menubar = Menu(root)
 menubasedat = Menu(menubar, tearoff=0)
 menubasedat.add_command(label="Crear/Conectar Base de Datos", command=conexionBBDD)
@@ -170,6 +170,8 @@ ayudamenu = Menu(menubar, tearoff=0)
 ayudamenu.add_command(label="Limpiar Campos", command=limpiarCampos)
 ayudamenu.add_command(label="Acerca", command=mensaje)
 menubar.add_cascade(label="Ayuda", menu=ayudamenu)
+
+########### Creando etiquetas y cajas de texto
 
 e1 = Entry(root, textvariable=miId)
 
@@ -188,7 +190,20 @@ l4.place(x=280, y=40)
 e4 = Entry(root, textvariable=miSalario, width=10)
 e4.place(x=320, y=40)
 
-l5
+l5 = Label(root, text="USD")
+l5.place(x=380, y=40)
+
+########## Creando botones
+
+b1 = Button(root, text="Crear Registro", command=crear)
+b1.place(x=50, y=90)
+b2 = Button(root, text="Modificar Registro", command=actualizar)
+b2.place(x=180, y=90)
+b3 = Button(root, text="Mostrar Lista", command=mostrar)
+b3.place(x=320, y=90)
+b4 = Button(root, text="Eliminar Registro", bg="red", command=borrar)
+b4.place(x=450, y=90)
+
 
 root.config(menu=menubar)
 
