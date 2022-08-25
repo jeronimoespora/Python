@@ -1,12 +1,14 @@
 # importar bibliotecas
 
+from cProfile import label
+from cgitb import text
 from email import message
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import sqlite3
 
-# Desarrpññp de ña omterfaz grafoca
+# Desarrpññp de la interfaz grafica
 
 root = Tk()
 root.title("Aplicación CRUD con Base de Datos")
@@ -156,5 +158,38 @@ tree.heading("#3", text="Salario", anchor=CENTER)
 
 
 ########## Colocar widgets en la VISTA
+
+menubar = Menu(root)
+menubasedat = Menu(menubar, tearoff=0)
+menubasedat.add_command(label="Crear/Conectar Base de Datos", command=conexionBBDD)
+menubasedat.add_command(label="Eliminar Base de Datos", command=eliminarBBDD)
+menubasedat.add_command(label="Salir", command=salirAplicacion)
+menubar.add_cascade(label="Inicio", menu=menubasedat)
+
+ayudamenu = Menu(menubar, tearoff=0)
+ayudamenu.add_command(label="Limpiar Campos", command=limpiarCampos)
+ayudamenu.add_command(label="Acerca", command=mensaje)
+menubar.add_cascade(label="Ayuda", menu=ayudamenu)
+
+e1 = Entry(root, textvariable=miId)
+
+l2 = Label(root, text="Nombre")
+l2.place(x=50, y=10)
+e2 = Entry(root, textvariable=miNombre, width=50)
+e2.place(x=100, y=10)
+
+l3 = Label(root, text="Cargo")
+l3.place(x=50, y=40)
+e3 = Entry(root, textvariable=miCargo)
+e3.place(x=100, y=40)
+
+l4 = Label(root, text="Salario")
+l4.place(x=280, y=40)
+e4 = Entry(root, textvariable=miSalario, width=10)
+e4.place(x=320, y=40)
+
+l5
+
+root.config(menu=menubar)
 
 root.mainloop()
