@@ -1,14 +1,10 @@
 # importar bibliotecas
-
-from cProfile import label
-from cgitb import text
-from email import message
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import sqlite3
 
-# Desarrpññp de la interfaz grafica
+# Desarrollo de la Interfaz grafica
 
 root = Tk()
 root.title("Aplicación CRUD con Base de Datos")
@@ -28,7 +24,7 @@ def conexionBBDD():
         miCursor.execute(
             """
             CREATE TABLE empleado ( 
-            ID INTEGER PRIMARY KEY AUTOINCREMENT
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
             NOMBRE VARCHAR(50) NOT NULL,
             CARGO VARCHAR(50) NOT NULL,
             SALARIO INT NOT NULL)
@@ -44,13 +40,15 @@ def conexionBBDD():
 def eliminarBBDD():
     miConexion = sqlite3.connect("base")
     miCursor = miConexion.cursor()
-    if messagebox.askylesno(
-        message="¿Los Datos se perderan definitivamente. Desea continuar?",
+    if messagebox.askyesno(
+        message="¿Los Datos se perderan definitivamente, Desea continuar?",
         title="ADVERTENCIA",
     ):
         miCursor.execute("DROP TABLE empleado")
     else:
         pass
+    limpiarCampos()
+    mostrar()
 
 
 def salirAplicacion():
@@ -74,6 +72,8 @@ def mensaje():
     Version 1.0
     Tecnologia Python Tkinter
     """
+
+    messagebox.showinfo(title="Informacion", message=acerca)
 
 
 ####################################### Metodos CRUD#################################
@@ -117,13 +117,13 @@ def actualizar():
     try:
         datos = miNombre.get(), miCargo.get(), miSalario.get()
         miCursor.execute(
-            "UPDATE empleado SET NOMBRE=?, CARGO=?, SALARIO=? WHERE ID=" + miID.get(),
+            "UPDATE empleado SET NOMBRE=?, CARGO=?, SALARIO=? WHERE ID=" + miId.get(),
             (datos),
         )
         miConexion.commit()
     except:
         messagebox.showwarning(
-            "ADVERTENCIA", "Ocurrio un error al actualizar el registro"
+            "ADVERTENCIA", "Ocurrió un error al actualizar el registro"
         )
         pass
     limpiarCampos()
@@ -138,6 +138,7 @@ def borrar():
             message=" Realmente desea eliminar el registro?", title="ADVERTENCIA"
         ):
             miCursor.execute("DELETE FROM empleado WHERE ID=" + miId.get())
+            miConexion.commit()
     except:
         messagebox.showwarning(
             "ADVERTENCIA", "Ocurrio un error al tratar de eliminar los registros"
@@ -155,6 +156,17 @@ tree.heading("#1", text="Nomre de empleado", anchor=CENTER)
 tree.heading("#2", text="Cargo", anchor=CENTER)
 tree.column("#3", width=100)
 tree.heading("#3", text="Salario", anchor=CENTER)
+
+
+def seleccionarUsandoClick(event):
+    item = tree.identify("item", event.x, event.y)
+    miId.set(tree.item(item, "text"))
+    miNombre.set(tree.item(item, "values")[0])
+    miCargo.set(tree.item(item, "values")[1])
+    miSalario.set(tree.item(item, "values")[2])
+
+
+tree.bind("<Double-1>", seleccionarUsandoClick)
 
 
 ########## Colocar widgets en la VISTA
