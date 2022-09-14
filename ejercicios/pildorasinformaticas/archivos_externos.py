@@ -1,8 +1,16 @@
-from io import open
+import os
 
-archivo_externo = open("primeroArchivo.txt", "w")
+import io
 
-archivo_externo.write("Bienevnidos a los archivos externos")
+os.makedirs("PracticaDirectorio")
 
-archivo_externo.close()
+os.chdir("PracticaDirectorio")
 
+archivo_externo=open("Ejemplo.txt", "w")
+
+archivo_externo.write("Texto de ejemplo...")
+
+
+print(os.getcwd)
+
+print(os.listdir("./"))
