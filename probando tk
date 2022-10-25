@@ -6,7 +6,7 @@ raiz.title("Primera ventana Python")
 
 raiz.resizable(1, 1)
 
-raiz.iconbitmap("\favicon.ico")
+# raiz.iconbitmap("") sirve para cambiar el icono. necesito un favicon para poner aqui!
 
 raiz.geometry("700x400")  # cambia el tamaño de la ventana
 
