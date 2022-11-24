@@ -23,28 +23,29 @@ class Calculadora:
         boton7 = self.colocar_Boton(7)
         boton8 = self.colocar_Boton(8)
         boton9 = self.colocar_Boton(9)
-        botondiv = self.colocar_Boton("/", mostrar=False)
+        botondiv = self.colocar_Boton("/")
 
         # -----------------------------------------------
 
         boton4 = self.colocar_Boton(4)
         boton5 = self.colocar_Boton(5)
         boton6 = self.colocar_Boton(6)
-        botonx = self.colocar_Boton("x", mostrar=False)
+        botonx = self.colocar_Boton("\u00D7")
+        # botonx.config(text="x")
 
         # -----------------------------------------------
 
         boton1 = self.colocar_Boton(1)
         boton2 = self.colocar_Boton(2)
         boton3 = self.colocar_Boton(3)
-        botonrest = self.colocar_Boton("-", mostrar=False)
+        botonrest = self.colocar_Boton("-")
 
         # -----------------------------------------------
 
         botoncero = self.colocar_Boton(0)
         botoncoma = self.colocar_Boton(".")
         botonigual = self.colocar_Boton("=", mostrar=False)
-        botonmas = self.colocar_Boton("+", mostrar=False)
+        botonmas = self.colocar_Boton("+")
 
         # -----------------------------------------------
 
@@ -87,12 +88,20 @@ class Calculadora:
     def pulsaciones_teclas(self, valor, mostrar):
 
         if mostrar:
+            self.operacion += str(valor)
             self.mostrar_pantalla(valor)
+        elif not mostrar and valor == "=":
+            self.operacion = re.sub("\u00D7", "*", self.operacion)
+            self.borrar_pantalla()
+            self.mostrar_pantalla(str(eval(self.operacion)))
         else:
             pass
 
     def mostrar_pantalla(self, valor):
         self.display.insert(END, valor)
+
+    def borrar_pantalla(self):
+        self.display.delete(0, END)
 
 
 mi_calculadora = Calculadora(raiz)
