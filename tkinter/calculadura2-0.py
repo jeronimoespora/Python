@@ -30,7 +30,8 @@ class Calculadora:
         boton4 = self.colocar_Boton(4)
         boton5 = self.colocar_Boton(5)
         boton6 = self.colocar_Boton(6)
-        botonx = self.colocar_Boton("\u00D7")
+        # botonx = self.colocar_Boton("\u00D7")  # unicode
+        botonx = self.colocar_Boton("*")
         # botonx.config(text="x")
 
         # -----------------------------------------------
@@ -91,7 +92,7 @@ class Calculadora:
             self.operacion += str(valor)
             self.mostrar_pantalla(valor)
         elif not mostrar and valor == "=":
-            self.operacion = re.sub("\u00D7", "*", self.operacion)
+            # self.operacion = re.sub("\u00D7", "*", self.operacion) problema con el "re"
             self.borrar_pantalla()
             self.mostrar_pantalla(str(eval(self.operacion)))
         else:
