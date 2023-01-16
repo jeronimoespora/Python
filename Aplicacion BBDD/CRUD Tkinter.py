@@ -59,7 +59,7 @@ def crear():
 
     mi_cursor = mi_conexion.cursor()
 
-    mi_cursor.execute(
+    """mi_cursor.execute(
         "INSERT INTO DATOSUSUARIOS VALUES(NULL, '"
         + mi_nombre.get()
         + "','"
@@ -71,7 +71,18 @@ def crear():
         + "','"
         + textComentario.get("1.0", END)
         + "')"
+    )"""
+
+    los_datos = (
+        mi_nombre.get(),
+        mi_password.get(),
+        mi_apellido.get(),
+        mi_direccion.get(),
+        textComentario.get("1.0", END),
     )
+
+    mi_cursor.execute("INSERT INTO DATOSUSUARIOS VALUES(NULL,?,?,?,?,?)", (los_datos))
+
     mi_conexion.commit()
 
     messagebox.showinfo("CRUD", "Registro insetado OK")
@@ -102,7 +113,7 @@ def actualizar():
 
     mi_cursor = mi_conexion.cursor()
 
-    mi_cursor.execute(
+    """mi_cursor.execute(
         "UPDATE DATOSUSUARIOS SET NOMBRE='"
         + mi_nombre.get()
         + "', PASSWORD='"
@@ -115,11 +126,37 @@ def actualizar():
         + textComentario.get("1.0", END)
         + "' WHERE ID="
         + mi_Id.get()
+    )"""
+
+    los_datos = (
+        mi_nombre.get(),
+        mi_password.get(),
+        mi_apellido.get(),
+        mi_direccion.get(),
+        textComentario.get("1.0", END),
+    )
+
+    mi_cursor.execute(
+        "UPDATE DATOSUSUARIOS SET NOMBRE=?, PASSWORD=?, APELLIDO=?, DIRECCION=?, COMENTARIOS=? WHERE ID="
+        + mi_Id.get(),
+        (los_datos),
     )
 
     mi_conexion.commit()
 
     messagebox.showinfo("CRUD", "Registro actualizado OK")
+
+
+def eliminar():
+    mi_conexion = sqlite3.connect("NegocioUsuarios")
+
+    mi_cursor = mi_conexion.cursor()
+
+    mi_cursor.execute("DELETE FROM DATOSUSUARIOS WHERE ID=" + mi_Id.get())
+
+    mi_conexion.commit()
+
+    messagebox.showinfo("CRUD", "Registro borrado correctamente")
 
 
 barraMenu = Menu(root)
@@ -146,7 +183,7 @@ crudMenu = Menu(barraMenu, tearoff=0)
 crudMenu.add_command(label="Crear", command=crear)
 crudMenu.add_command(label="leer", command=leer)
 crudMenu.add_command(label="Actualizar", command=actualizar)
-crudMenu.add_command(label="Borrar")
+crudMenu.add_command(label="Borrar", command=eliminar)
 
 ayudaMenu = Menu(barraMenu, tearoff=0)
 ayudaMenu.add_command(label="Licencia")
@@ -219,7 +256,7 @@ botonLeer.grid(row=1, column=1, sticky="e", padx=10, pady=10)
 botonActualizar = Button(miFrameBotones, text="Actualizar", command=actualizar)
 botonActualizar.grid(row=1, column=2, sticky="e", padx=10, pady=10)
 
-botonBorrar = Button(miFrameBotones, text="Borrar")
+botonBorrar = Button(miFrameBotones, text="Borrar", command=eliminar)
 botonBorrar.grid(row=1, column=3, sticky="e", padx=10, pady=10)
 
 
