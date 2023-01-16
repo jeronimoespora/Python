@@ -14,11 +14,23 @@ class CrudPOO(Frame):
         self.mi_password = StringVar()
         self.mi_direccion = StringVar()
 
+        # ---------------------Barra de Menu-------------------------
+
+        self.barraMenu = Menu(root)
+        raiz.config(menu=self.barraMenu)
+
         super().__init__(raiz, width=300, height=300)
         self.master = raiz
         self.pack()
 
+        self.miFrameBotones = Frame(raiz)
+        self.miFrameBotones.pack()
+
         self.crear_widgets()
+
+        self.crear_barra_menu()
+
+        self.ubicar_botones()
 
     def crear_widgets(self):
 
@@ -64,6 +76,44 @@ class CrudPOO(Frame):
 
         self.comentariosLabel = Label(self, text="Comentarios:")
         self.comentariosLabel.grid(row=5, column=0, sticky="e", padx=10, pady=10)
+
+    def crear_barra_menu(self):
+
+        # --------------------MENU-------------------------------
+        self.bbddMenu = Menu(self.barraMenu, tearoff=0)
+        self.bbddMenu.add_command(label="Conectar")
+        self.bbddMenu.add_command(label="Salir")
+
+        self.borrarMenu = Menu(self.barraMenu, tearoff=0)
+        self.borrarMenu.add_command(label="Limpiar campos")
+
+        self.crudMenu = Menu(self.barraMenu, tearoff=0)
+        self.crudMenu.add_command(label="Crear")
+        self.crudMenu.add_command(label="leer")
+        self.crudMenu.add_command(label="Actualizar")
+        self.crudMenu.add_command(label="Borrar")
+
+        self.ayudaMenu = Menu(self.barraMenu, tearoff=0)
+        self.ayudaMenu.add_command(label="Licencia")
+        self.ayudaMenu.add_command(label="Acerca de...")
+
+        self.barraMenu.add_cascade(label="BBDD", menu=self.bbddMenu)
+        self.barraMenu.add_cascade(label="Borrar", menu=self.borrarMenu)
+        self.barraMenu.add_cascade(label="CRUD", menu=self.crudMenu)
+        self.barraMenu.add_cascade(label="Ayuda", menu=self.ayudaMenu)
+
+    def ubicar_botones(self):
+        self.botonCrear = Button(self.miFrameBotones, text="Crear")
+        self.botonCrear.grid(row=1, column=0, sticky="e", padx=10, pady=10)
+
+        self.botonLeer = Button(self.miFrameBotones, text="Leer")
+        self.botonLeer.grid(row=1, column=1, sticky="e", padx=10, pady=10)
+
+        self.botonActualizar = Button(self.miFrameBotones, text="Actualizar")
+        self.botonActualizar.grid(row=1, column=2, sticky="e", padx=10, pady=10)
+
+        self.botonBorrar = Button(self.miFrameBotones, text="Borrar")
+        self.botonBorrar.grid(row=1, column=3, sticky="e", padx=10, pady=10)
 
 
 root = Tk()
