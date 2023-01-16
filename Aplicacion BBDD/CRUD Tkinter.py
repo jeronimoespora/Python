@@ -54,6 +54,29 @@ def limpiar_campos():
     textComentario.delete(1.0, END)
 
 
+def crear():
+    mi_conexion = sqlite3.connect("NegocioUsuarios")
+
+    mi_cursor = mi_conexion.cursor()
+
+    mi_cursor.execute(
+        "INSERT INTO DATOSUSUARIOS VALUES(NULL, '"
+        + mi_nombre.get()
+        + "','"
+        + mi_password.get()
+        + "','"
+        + mi_apellido.get()
+        + "','"
+        + mi_direccion.get()
+        + "','"
+        + textComentario.get("1.0", END)
+        + "')"
+    )
+    mi_conexion.commit()
+
+    messagebox.showinfo("CRUD", "Registro insetado OK")
+
+
 barraMenu = Menu(root)
 root.config(menu=barraMenu, width=300, height=300)
 
@@ -65,6 +88,8 @@ mi_apellido = StringVar()
 mi_password = StringVar()
 mi_direccion = StringVar()
 
+
+# --------------------MENU-------------------------------
 bbddMenu = Menu(barraMenu, tearoff=0)
 bbddMenu.add_command(label="Conectar", command=conectarBBDD)
 bbddMenu.add_command(label="Salir", command=salirAplicacion)
@@ -73,7 +98,7 @@ borrarMenu = Menu(barraMenu, tearoff=0)
 borrarMenu.add_command(label="Limpiar campos", command=limpiar_campos)
 
 crudMenu = Menu(barraMenu, tearoff=0)
-crudMenu.add_command(label="Crear")
+crudMenu.add_command(label="Crear", command=crear)
 crudMenu.add_command(label="leer")
 crudMenu.add_command(label="Actualizar")
 crudMenu.add_command(label="Borrar")
@@ -140,7 +165,7 @@ comentariosLabel.grid(row=5, column=0, sticky="e", padx=10, pady=10)
 miFrameBotones = Frame(root)
 miFrameBotones.pack()
 
-botonCrear = Button(miFrameBotones, text="Crear")
+botonCrear = Button(miFrameBotones, text="Crear", command=crear)
 botonCrear.grid(row=1, column=0, sticky="e", padx=10, pady=10)
 
 botonLeer = Button(miFrameBotones, text="Leer")
