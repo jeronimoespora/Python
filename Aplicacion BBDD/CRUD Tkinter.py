@@ -4,12 +4,53 @@ import sqlite3
 
 root = Tk()
 
+# ------------------------------Conexión/creación BBDD--------------------------------
+
+
+def conectarBBDD():
+
+    miConexion = sqlite3.connect("NegocioUsuarios")
+
+    miCursor = miConexion.cursor()
+
+    try:
+
+        miCursor.execute(
+            """
+        
+            CREATE TABLE DATOSUSUARIOS(
+
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                NOMBRE VARCHAR(50),
+                PASSWORD VARCHAR(50),
+                APELLIDO VARCHAR(50),
+                DIRECCION VARCHAR(70),
+                COMENTARIOS VARCHAR(120)
+            )
+        """
+        )
+
+        messagebox.showinfo("BBDD", "BBDD creada con éxito")
+
+    except:
+        messagebox.showwarning("¡Cuidado!", "La BBDD ya existe")
+
+
+def salirAplicacion():
+
+    valor_salir = messagebox.askquestion(
+        "Salir", "¿Seguro que deseas salir de la alplicación?"
+    )
+    if valor_salir == "yes":
+        root.destroy()
+
+
 barraMenu = Menu(root)
 root.config(menu=barraMenu, width=300, height=300)
 
 bbddMenu = Menu(barraMenu, tearoff=0)
-bbddMenu.add_command(label="Conectar")
-bbddMenu.add_command(label="Salir")
+bbddMenu.add_command(label="Conectar", command=conectarBBDD)
+bbddMenu.add_command(label="Salir", command=salirAplicacion)
 
 borrarMenu = Menu(barraMenu, tearoff=0)
 borrarMenu.add_command(label="Borrar")
