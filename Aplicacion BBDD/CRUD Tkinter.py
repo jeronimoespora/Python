@@ -45,15 +45,32 @@ def salirAplicacion():
         root.destroy()
 
 
+def limpiar_campos():
+    mi_Id.set("")
+    mi_nombre.set("")
+    mi_apellido.set("")
+    mi_direccion.set("")
+    mi_password.set("")
+    textComentario.delete(1.0, END)
+
+
 barraMenu = Menu(root)
 root.config(menu=barraMenu, width=300, height=300)
+
+# ----------------Variables de control--------------------------
+
+mi_Id = StringVar()
+mi_nombre = StringVar()
+mi_apellido = StringVar()
+mi_password = StringVar()
+mi_direccion = StringVar()
 
 bbddMenu = Menu(barraMenu, tearoff=0)
 bbddMenu.add_command(label="Conectar", command=conectarBBDD)
 bbddMenu.add_command(label="Salir", command=salirAplicacion)
 
 borrarMenu = Menu(barraMenu, tearoff=0)
-borrarMenu.add_command(label="Borrar")
+borrarMenu.add_command(label="Limpiar campos", command=limpiar_campos)
 
 crudMenu = Menu(barraMenu, tearoff=0)
 crudMenu.add_command(label="Crear")
@@ -75,21 +92,21 @@ barraMenu.add_cascade(label="Ayuda", menu=ayudaMenu)
 miFrame = Frame(root)
 miFrame.pack()
 
-cuadroId = Entry(miFrame)
+cuadroId = Entry(miFrame, textvariable=mi_Id)
 cuadroId.grid(row=0, column=1, padx=10, pady=10)
 
-cuadroNombre = Entry(miFrame)
+cuadroNombre = Entry(miFrame, textvariable=mi_nombre)
 cuadroNombre.grid(row=1, column=1, padx=10, pady=10)
 cuadroNombre.config(fg="red", justify="right")
 
-cuadroPass = Entry(miFrame)
+cuadroPass = Entry(miFrame, textvariable=mi_password)
 cuadroPass.grid(row=2, column=1, padx=10, pady=10)
 cuadroPass.config(show="*")
 
-cuadroApellido = Entry(miFrame)
+cuadroApellido = Entry(miFrame, textvariable=mi_apellido)
 cuadroApellido.grid(row=3, column=1, padx=10, pady=10)
 
-cuadroDireccion = Entry(miFrame)
+cuadroDireccion = Entry(miFrame, textvariable=mi_direccion)
 cuadroDireccion.grid(row=4, column=1, padx=10, pady=10)
 
 textComentario = Text(miFrame, width=16, height=5)
