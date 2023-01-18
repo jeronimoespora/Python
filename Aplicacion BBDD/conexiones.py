@@ -3,10 +3,12 @@ from tkinter import END, Text, messagebox
 from tkinter import simpledialog
 from funcionesCRUD import *
 
+
 def conectarBBDD():
 
     nombre_BBDD = simpledialog.askstring(
-        "BBDD", "Introduce el nombre de la BBDD que quieres crear"
+        "Crear/Conectar BBDD",
+        "Introduce el nombre de la BBDD que quieres crear/conectar.",
     )
 
     almacena(nombre_BBDD)
@@ -32,10 +34,10 @@ def conectarBBDD():
         """
         )
 
-        messagebox.showinfo("BBDD", "BBDD creada con éxito")
+        messagebox.showinfo("BBDD", "BBDD creada con éxito!")
 
     except:
-        messagebox.showwarning("¡Cuidado!", "La BBDD ya existe")
+        messagebox.showwarning("BBDD", "Conexión realizada con éxito!")
 
 
 def salir_aplicacion(raiz):

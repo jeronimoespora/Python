@@ -110,7 +110,7 @@ class CrudPOO(Frame):
             ),
         )
         self.crudMenu.add_command(
-            label="leer",
+            label="Leer",
             command=lambda: leer(
                 self.mi_Id.get(),
                 self.mi_nombre,
@@ -121,29 +121,88 @@ class CrudPOO(Frame):
             ),
         )
 
-        self.crudMenu.add_command(label="Actualizar")
-        self.crudMenu.add_command(label="Borrar")
+        self.crudMenu.add_command(
+            label="Actualizar",
+            command=lambda: actualizar(
+                self.mi_Id.get(),
+                self.mi_nombre,
+                self.mi_password,
+                self.mi_apellido,
+                self.mi_direccion,
+                self.textComentario.get(1.0, END),
+            ),
+        )
+        self.crudMenu.add_command(
+            label="Borrar", command=lambda: eliminar(self.mi_Id.get())
+        )
 
         self.ayudaMenu = Menu(self.barraMenu, tearoff=0)
-        self.ayudaMenu.add_command(label="Licencia")
-        self.ayudaMenu.add_command(label="Acerca de...")
+        self.ayudaMenu.add_command(
+            label="Licencia",
+            command=lambda: messagebox.showinfo(
+                "Licencia", "Licencia de uso libre ^_^"
+            ),
+        )
+        self.ayudaMenu.add_command(
+            label="Acerca de...",
+            command=lambda: messagebox.showinfo(
+                "Acerca de",
+                "Aplicacion creada con tkinter, orientada a objetos y modularizada siguiendo guia practica del curso de python tutorizado de pildoras informaticas.",
+            ),
+        )
 
         self.barraMenu.add_cascade(label="BBDD", menu=self.bbddMenu)
-        self.barraMenu.add_cascade(label="Borrar", menu=self.borrarMenu)
+        self.barraMenu.add_cascade(label="Limpiar", menu=self.borrarMenu)
         self.barraMenu.add_cascade(label="CRUD", menu=self.crudMenu)
         self.barraMenu.add_cascade(label="Ayuda", menu=self.ayudaMenu)
 
     def ubicar_botones(self):
-        self.botonCrear = Button(self.miFrameBotones, text="Crear")
+        self.botonCrear = Button(
+            self.miFrameBotones,
+            text="Crear",
+            command=lambda: crear(
+                self.mi_nombre,
+                self.mi_password,
+                self.mi_apellido,
+                self.mi_direccion,
+                self.textComentario.get(1.0, END),
+            ),
+        )
         self.botonCrear.grid(row=1, column=0, sticky="e", padx=10, pady=10)
 
-        self.botonLeer = Button(self.miFrameBotones, text="Leer")
+        self.botonLeer = Button(
+            self.miFrameBotones,
+            text="Leer",
+            command=lambda: leer(
+                self.mi_Id.get(),
+                self.mi_nombre,
+                self.mi_password,
+                self.mi_apellido,
+                self.mi_direccion,
+                self.textComentario,
+            ),
+        )
         self.botonLeer.grid(row=1, column=1, sticky="e", padx=10, pady=10)
 
-        self.botonActualizar = Button(self.miFrameBotones, text="Actualizar")
+        self.botonActualizar = Button(
+            self.miFrameBotones,
+            text="Actualizar",
+            command=lambda: actualizar(
+                self.mi_Id.get(),
+                self.mi_nombre,
+                self.mi_password,
+                self.mi_apellido,
+                self.mi_direccion,
+                self.textComentario.get(1.0, END),
+            ),
+        )
         self.botonActualizar.grid(row=1, column=2, sticky="e", padx=10, pady=10)
 
-        self.botonBorrar = Button(self.miFrameBotones, text="Borrar")
+        self.botonBorrar = Button(
+            self.miFrameBotones,
+            text="Borrar",
+            command=lambda: eliminar(self.mi_Id.get()),
+        )
         self.botonBorrar.grid(row=1, column=3, sticky="e", padx=10, pady=10)
 
 

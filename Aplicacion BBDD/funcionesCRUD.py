@@ -76,3 +76,73 @@ def leer(Id, *args):
             pos_array += 1
 
     mi_conexion.commit()
+
+
+def actualizar(Id, *args):
+
+    global nombre_BBDD
+
+    mi_conexion = sqlite3.connect(nombre_BBDD)
+
+    mi_cursor = mi_conexion.cursor()
+
+    valor_actualizar = messagebox.askquestion(
+        "Actualizar?", "¿Seguro que deseas actualizar el registro??"
+    )
+    if valor_actualizar == "yes":
+
+        """mi_cursor.execute(
+            "UPDATE DATOSUSUARIOS SET NOMBRE='"
+            + mi_nombre.get()
+            + "', PASSWORD='"
+            + mi_password.get()
+            + "', APELLIDO='"
+            + mi_apellido.get()
+            + "', DIRECCION='"
+            + mi_direccion.get()
+            + "', COMENTARIOS='"
+            + textComentario.get("1.0", END)
+            + "' WHERE ID="
+            + mi_Id.get()
+        )"""
+
+        los_datos_lista = []
+        for campo in args:
+
+            if type(campo) == str:
+
+                los_datos_lista.append(campo)
+
+            else:
+                los_datos_lista.append(campo.get())
+
+        los_datos = tuple(los_datos_lista)
+
+        mi_cursor.execute(
+            "UPDATE DATOSUSUARIOS SET NOMBRE=?, PASSWORD=?, APELLIDO=?, DIRECCION=?, COMENTARIOS=? WHERE ID="
+            + Id,
+            (los_datos),
+        )
+
+        mi_conexion.commit()
+
+        messagebox.showinfo("CRUD", "Registro actualizado OK")
+
+
+def eliminar(Id):
+
+    global nombre_BBDD
+
+    mi_conexion = sqlite3.connect(nombre_BBDD)
+
+    mi_cursor = mi_conexion.cursor()
+
+    valor_borrar = messagebox.askquestion(
+        "Eliminar", "¿Seguro que deseas eliminar el registro??"
+    )
+    if valor_borrar == "yes":
+        mi_cursor.execute("DELETE FROM DATOSUSUARIOS WHERE ID=" + Id)
+
+        mi_conexion.commit()
+
+        messagebox.showinfo("CRUD", "Registro borrado correctamente")
