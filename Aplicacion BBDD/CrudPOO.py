@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-import sqlite3
+from conexiones import *
+from funcionesCRUD import *
 
 
 class CrudPOO(Frame):
@@ -81,15 +82,45 @@ class CrudPOO(Frame):
 
         # --------------------MENU-------------------------------
         self.bbddMenu = Menu(self.barraMenu, tearoff=0)
-        self.bbddMenu.add_command(label="Conectar")
-        self.bbddMenu.add_command(label="Salir")
+        self.bbddMenu.add_command(label="Conectar", command=conectarBBDD)
+        self.bbddMenu.add_command(label="Salir", command=lambda: salir_aplicacion(root))
 
         self.borrarMenu = Menu(self.barraMenu, tearoff=0)
-        self.borrarMenu.add_command(label="Limpiar campos")
+        self.borrarMenu.add_command(
+            label="Limpiar campos",
+            command=lambda: limpiar_campos(
+                self.textComentario,
+                self.mi_Id,
+                self.mi_nombre,
+                self.mi_password,
+                self.mi_apellido,
+                self.mi_direccion,
+            ),
+        )
 
         self.crudMenu = Menu(self.barraMenu, tearoff=0)
-        self.crudMenu.add_command(label="Crear")
-        self.crudMenu.add_command(label="leer")
+        self.crudMenu.add_command(
+            label="Crear",
+            command=lambda: crear(
+                self.mi_nombre,
+                self.mi_password,
+                self.mi_apellido,
+                self.mi_direccion,
+                self.textComentario.get(1.0, END),
+            ),
+        )
+        self.crudMenu.add_command(
+            label="leer",
+            command=lambda: leer(
+                self.mi_Id.get(),
+                self.mi_nombre,
+                self.mi_password,
+                self.mi_apellido,
+                self.mi_direccion,
+                self.textComentario,
+            ),
+        )
+
         self.crudMenu.add_command(label="Actualizar")
         self.crudMenu.add_command(label="Borrar")
 
