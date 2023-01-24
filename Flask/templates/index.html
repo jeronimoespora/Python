@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{url_for("static", filename='css/index.css')}}">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Inicio{{num_usuario}} {% endblock %} 
+
+{% block content %}
+
     Este es el mensaje desde la pagina creada
     <br>
     {{numero_empleados
     }}
-</body>
-</html>
+    <br>
+    <a href="{{url_for('posts')}}">A la página de los posts</a>
+
+
+{% endblock %}
