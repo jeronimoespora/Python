@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endbloc %}</title>
+    <link rel="stylesheet" href="{{url_for("static", filename='css/index.css')}}">
+</head>
+<body>
+    
+    <ul id="barra">
+        <li id="elemento">Inicio</li>
+        <li id="elemento">Servicios</li>
+        <li id="elemento">Productos</li>
+        <li>Contacto</li>
+    </ul>
+
+    {% block content %}
+
+    {% endblock %}
+    
+</body>
+</html>
