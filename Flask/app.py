@@ -1,7 +1,11 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 import os
 
+from forms import SignupForm
+
 app = Flask(__name__)
+
+app.config["SECRET_KEY"] = "prueba"
 
 empleados = ["Ana", "Maria", "Sandra", "Juan"]
 
@@ -52,9 +56,17 @@ def posts(npost=0):
     return "Este es el post nº {}".format(npost)
 
 
-@app.route("/contacto")
+@app.route("/contacto", methods=["GET", "POST"])
 def contacto():
-    return render_template("Contacto.html")
+    form = SignupForm()
+
+    if form.validate_on_submit():
+        nombre = form.name.data
+        correo = form.email.data
+        contra = form.password.data
+
+        return redirect(url_for("inicio"))
+    return render_template("contacto.html", form=form)
 
 
 if __name__ == "__main__":
