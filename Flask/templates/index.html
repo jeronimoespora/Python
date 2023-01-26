@@ -11,5 +11,15 @@
     <br>
     <a href="{{url_for('posts')}}">A la página de los posts</a>
 
+    <ul>
+
+        {% for post in listaPosts %}
+
+        <li style="font-weight:bold ; text-decoration:underline">{{post.title}}</li>
+        <ul><li>{{post.content}}</li></ul>
+
+        {% endfor %}
+    </ul>
+
 
 {% endblock %}

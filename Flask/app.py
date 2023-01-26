@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 import os
 
 from forms import SignupForm
+from forms import PostForm
 
 app = Flask(__name__)
 
@@ -9,12 +10,16 @@ app.config["SECRET_KEY"] = "prueba"
 
 empleados = ["Ana", "Maria", "Sandra", "Juan"]
 
+elNombre = ""
+
+losPosts = []
+
 
 @app.route("/")
 @app.route("/inicio")
 def inicio():
 
-    return render_template("index.html", numero_empleados=len(empleados))
+    return render_template("index.html", listaPosts=losPosts)
 
 
 @app.route("/servicios")
@@ -50,20 +55,36 @@ def datosusuario(id, nombreusuario):
     )
 
 
-@app.route("/posts")
-@app.route("/posts/<int:npost>")
-def posts(npost=0):
-    return "Este es el post nº {}".format(npost)
+@app.route("/posts", methods=["GET", "POST"], defaults={"post_id": None})
+@app.route("/posts/<int:npost>", methods=["GET", "POST"])
+def posts(post_id):
+    global losPosts
+    form = PostForm()
+
+    if form.validate_on_submit():
+        titulo = form.title.data
+
+        contenido = form.content.data
+
+        post = {"title": titulo, "content": contenido}
+
+        losPosts.append(post)
+
+        return redirect(url_for("inicio"))
+    return render_template("entradaBlog.html", form=form)
 
 
 @app.route("/contacto", methods=["GET", "POST"])
 def contacto():
+    global elNombre
     form = SignupForm()
 
     if form.validate_on_submit():
         nombre = form.name.data
         correo = form.email.data
         contra = form.password.data
+
+        elNombre = nombre
 
         return redirect(url_for("inicio"))
     return render_template("contacto.html", form=form)
