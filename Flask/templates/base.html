@@ -10,10 +10,10 @@
 <body>
     
     <ul id="barra">
-        <li id="elemento">Inicio</li>
-        <li id="elemento">Servicios</li>
-        <li id="elemento">Productos</li>
-        <li>Contacto</li>
+        <li id="elemento"><a href="{{url_for('inicio')}}">Inicio</a></li>
+        <li id="elemento"><a href="{{url_for('servicios')}}">Servicios</a></li>
+        <li id="elemento"><a href="{{url_for('productos')}}">Productos</a></li>
+        <li> <a href="{{url_for('contacto')}}">Contacto</a></li>
     </ul>
 
     {% block content %}

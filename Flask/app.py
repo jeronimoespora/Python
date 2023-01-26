@@ -7,15 +7,22 @@ empleados = ["Ana", "Maria", "Sandra", "Juan"]
 
 
 @app.route("/")
-def hola_mundo():
+@app.route("/inicio")
+def inicio():
 
     return render_template("index.html", numero_empleados=len(empleados))
 
 
-@app.route("/vamosaconocernos")
-def quienes():
+@app.route("/servicios")
+def servicios():
     # return "Esta es la pagina de quienes somos"
-    return render_template("conocenos.html")
+    return render_template("servicios.html")
+
+
+@app.route("/productos")
+def productos():
+    # return "Esta es la pagina de quienes somos"
+    return render_template("productos.html")
 
 
 """ @app.route("/usuarios/<string:nombreusuario>")
@@ -43,6 +50,11 @@ def datosusuario(id, nombreusuario):
 @app.route("/posts/<int:npost>")
 def posts(npost=0):
     return "Este es el post nº {}".format(npost)
+
+
+@app.route("/contacto")
+def contacto():
+    return render_template("Contacto.html")
 
 
 if __name__ == "__main__":
