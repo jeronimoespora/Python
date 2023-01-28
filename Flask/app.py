@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 import os
 
-from forms import SignupForm
+from forms import SignupForm,LoginForm
 from forms import PostForm
 
 app = Flask(__name__)
@@ -88,6 +88,39 @@ def contacto():
 
         return redirect(url_for("inicio"))
     return render_template("contacto.html", form=form)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    
+    form = LoginForm()
+
+    if request.method=='POST':
+        print(request.form['email'])
+        print(request.form['password'])
+        return render_template('login_form.html', form=form)
+
+    else:
+
+        return render_template('login_form.html', form=form)
+
+
+@app.route("/registro", methods=["GET", "POST"])
+def muestra_registro():
+    
+    form = SignupForm()
+
+    if request.method=='POST':
+        print(request.form['name'])
+        print(request.form['email'])
+        print(request.form['password'])
+        return render_template('login_form.html', form=form)
+
+    else:
+
+        return render_template('login_form.html', form=form)
+
+
 
 
 if __name__ == "__main__":

@@ -18,3 +18,9 @@ class PostForm(FlaskForm):
     title_slug = StringField("Titulo slug", validators=[Length(max=128)])
     content = StringField("Contenido", widget=TextArea())
     submit = SubmitField("Enviar")
+
+
+class LoginForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired()])
+    password = PasswordField("password", validators=[DataRequired()])
+    submit = SubmitField("envio_formulario")
