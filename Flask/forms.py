@@ -1,7 +1,7 @@
 from ast import Pass
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Email, Length
 from wtforms.widgets import TextArea
 
@@ -10,6 +10,7 @@ class SignupForm(FlaskForm):
     name = StringField("nombre", validators=[DataRequired(), Length(max=25)])
     password = PasswordField("contra", validators=[DataRequired()])
     email = StringField("email", validators=[DataRequired(), Email()])
+    remember_me = BooleanField("Recuerdame")
     submit = SubmitField("envio_formulario")
 
 
@@ -23,4 +24,5 @@ class PostForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired()])
     password = PasswordField("password", validators=[DataRequired()])
+    remember_me = BooleanField("Recuerdame")
     submit = SubmitField("envio_formulario")
