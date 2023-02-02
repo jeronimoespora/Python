@@ -16,6 +16,22 @@
         <li> <a href="{{url_for('contacto')}}">Contacto</a></li>
     </ul>
 
+    <div>
+        <ul style="list-style: none;">
+            {% if current_user.is_anonymous %}
+            <li>Usuario: anónimo</li>
+            <li><a href="{{ url_for('login')}}""> Ir a login</a></li>
+            {% else %}
+            <li>Usuario: {{current_user.name}} </li>
+            <li><a href="{{ url_for('logout')}}""> Ir a logout</a></li>
+
+            {% endif %}
+        </ul>
+
+
+
+    </div>
+
     {% block content %}
 
     {% endblock %}
